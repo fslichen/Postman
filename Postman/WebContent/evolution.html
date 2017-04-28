@@ -9,9 +9,20 @@
 		$('#getSend').click(function() {
 			$.get($('#url').val());
 		});
+		// You can send a json string to a request body in the following format.
+		// Call JSON.stringify() to turn a javascript object into a json string if necessary.
+		$('#postSend').click(function() {
+			$.ajax({
+		        url : $('#url').val(),
+		        type: "POST",
+		        data: $('#jsonString').val(),
+		        contentType: "application/json;charset=utf-8",
+		        dataType : "json"
+		    });
+		});
 		// Keep in mind that you are not allowed to send json in the following format.
 		// In this case, it just stores a key-value pair inside the parameter within HttpServletRequest.
-		$('#postSend').click(function() {
+		$('#postParameterSend').click(function() {
 			$.post($('#url').val(), {name : 'Chen'});
 		});
 	});
@@ -29,11 +40,15 @@
 		</tr>
 		<tr>
 			<td>Json</td>
-			<td><textarea id="jsonString" rows="10" cols="100">{“name” : “Chen"}</textarea></td>
+			<td><textarea id="jsonString" rows="10" cols="100">{"name" : "Chen"}</textarea></td>
 		</tr>
 		<tr>
 			<td>Post</td>
 			<td><input id="postSend" type="button" value="Send" /></td>
+		</tr>
+		<tr>
+			<td>Post Parameter</td>
+			<td><input id="postParameterSend" type="button" value="Send" /></td>
 		</tr>
 	</table>
 </body>
