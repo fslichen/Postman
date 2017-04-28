@@ -3,31 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Evolution</title>
-<script src="js/jquery-3.2.1.min.js"></script>
+<script src = "js/jquery-3.2.1.min.js"></script>
 <script>
 	$(document).ready(function() {
-		$('#submit').click(function() {
-			$.ajax({ 
-			    url : $('#url').val(),    
-			    type : 'POST',// This attribute is GET by default.
-			    contentType : 'application/json;charset=utf-8',// The default option is "application/x-www-form-urlencoded;charset=UTF-8"
-			    data : $('#jsonString').val(),// It is converted to a query string, if not already a string. It's appended to the url for GET-requests.
-			    async : true,// Enabling the asynchronous mechamism is appreciated since the call back function will take care of the response. This attribute is true by default. 
-			    cache : true,// Requested pages will be cached by the browser.          
-			    processData : false,// Avoids making a query string.
-			    beforeSend : function() {
-			    		alert('Ready');
-			    }, 
-			    success : function(responseDto) {
-			        alert('Success');
-			    }, 
-			    error : function() {
-			   	 	alert('Error');
-			    },
-			    complete : function() {
-			    		alert('Complete');
-			    }
-			});
+		$('#getSend').click(function() {
+			$.get($('#url').val());
+		});
+		// Keep in mind that you are not allowed to send json in the following format.
+		// In this case, it just stores a key-value pair inside the parameter within HttpServletRequest.
+		$('#postSend').click(function() {
+			$.post($('#url').val(), {name : 'Chen'});
 		});
 	});
 </script>
@@ -36,14 +21,19 @@
 	<table>
 		<tr>
 			<td>URL</td>
-			<td><input id="url" type="text" value="http://localhost:8080/"/></td>
+			<td><input id="url" type="text" value="http://localhost:8080/get" /></td>
+		</tr>
+		<tr>
+			<td>Get</td>
+			<td><input id="getSend" type="button" value="Send" /></td>
 		</tr>
 		<tr>
 			<td>Json</td>
 			<td><textarea id="jsonString" rows="10" cols="100">{“name” : “Chen"}</textarea></td>
 		</tr>
 		<tr>
-			<td><input id="submit" type="button" value="Send"/></td>
+			<td>Post</td>
+			<td><input id="postSend" type="button" value="Send" /></td>
 		</tr>
 	</table>
 </body>
